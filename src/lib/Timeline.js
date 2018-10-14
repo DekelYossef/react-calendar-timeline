@@ -86,7 +86,14 @@ export default class ReactCalendarTimeline extends Component {
     itemRenderer: PropTypes.func,
     groupRenderer: PropTypes.func,
 
-    style: PropTypes.object,
+    sidebarStyle: PropTypes.object,
+    sidebarHeaderStyle: PropTypes.object,
+    bottomHeaderStyle: PropTypes.object,
+    labelGroupStyle: PropTypes.object,
+    labelStyle: PropTypes.object,
+    horizontalLineOddStyle: PropTypes.object,
+    horizontalLineEvenStyle: PropTypes.object,
+    verticalLineStyle: PropTypes.object,
 
     keys: PropTypes.shape({
       groupIdKey: PropTypes.string,
@@ -732,6 +739,7 @@ export default class ReactCalendarTimeline extends Component {
         timeSteps={timeSteps}
         height={height}
         verticalLineClassNamesForTime={this.props.verticalLineClassNamesForTime}
+        verticalLineStyle={this.props.verticalLineStyle || {}}
       />
     )
   }
@@ -791,6 +799,8 @@ export default class ReactCalendarTimeline extends Component {
         onRowDoubleClick={this.handleRowDoubleClick}
         horizontalLineClassNamesForGroup={this.props.horizontalLineClassNamesForGroup}
         onRowContextClick={this.handleScrollContextMenu}
+        horizontalLineOddStyle={this.props.horizontalLineOddStyle || {}}
+        horizontalLineEvenStyle={this.props.horizontalLineEvenStyle || {}}
       />
     )
   }
@@ -861,12 +871,19 @@ export default class ReactCalendarTimeline extends Component {
     headerLabelGroupHeight,
     headerLabelHeight
   ) {
-    const { sidebarWidth, rightSidebarWidth } = this.props
+    const {
+      sidebarWidth,
+      rightSidebarWidth,
+      sidebarHeaderStyle = {},
+      bottomHeaderStyle = {},
+      labelGroupStyle = {},
+      labelStyle = {}
+    } = this.props
     const leftSidebar = sidebarWidth != null &&
       sidebarWidth > 0 && (
         <div
           className="rct-sidebar-header"
-          style={{ width: this.props.sidebarWidth }}
+          style={{ width: this.props.sidebarWidth, ...sidebarHeaderStyle }}
         >
           {this.props.sidebarContent}
         </div>
@@ -902,6 +919,9 @@ export default class ReactCalendarTimeline extends Component {
         leftSidebarHeader={leftSidebar}
         rightSidebarHeader={rightSidebar}
         headerRef={this.props.headerRef}
+        bottomHeaderStyle={bottomHeaderStyle}
+        labelGroupStyle={labelGroupStyle}
+        labelStyle={labelStyle}
       />
     )
   }
@@ -915,7 +935,7 @@ export default class ReactCalendarTimeline extends Component {
   }
 
   sidebar(height, groupHeights) {
-    const { sidebarWidth } = this.props
+    const { sidebarWidth, sidebarStyle = {}, horizontalLineEvenStyle = {}, horizontalLineOddStyle = {} } = this.props
     return (
       sidebarWidth != null &&
       sidebarWidth > 0 && (
@@ -926,6 +946,9 @@ export default class ReactCalendarTimeline extends Component {
           width={this.props.sidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          horizontalLineEvenStyle={horizontalLineEvenStyle}
+          horizontalLineOddStyle={horizontalLineOddStyle}
+          style={sidebarStyle}
         />
       )
     )

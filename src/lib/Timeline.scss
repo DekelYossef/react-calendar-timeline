@@ -163,7 +163,6 @@ $weekend: rgba(250, 246, 225, 0.5);
       text-overflow: ellipsis;
       box-sizing: content-box;
       margin: 0;
-      border-bottom: $border-width solid $border-color;
 
       &.rct-sidebar-row-odd {
         background: $row-background-odd;
@@ -194,7 +193,6 @@ $weekend: rgba(250, 246, 225, 0.5);
   .rct-horizontal-lines {
     .rct-hl-even,
     .rct-hl-odd {
-      border-bottom: $border-width solid $border-color;
       box-sizing: content-box;
       z-index: 40;
     }

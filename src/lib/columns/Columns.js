@@ -12,7 +12,8 @@ export default class Columns extends Component {
     minUnit: PropTypes.string.isRequired,
     timeSteps: PropTypes.object.isRequired,
     height: PropTypes.number.isRequired,
-    verticalLineClassNamesForTime: PropTypes.func
+    verticalLineClassNamesForTime: PropTypes.func,
+    verticalLineStyle: PropTypes.object
   }
 
   shouldComponentUpdate(nextProps) {
@@ -37,7 +38,8 @@ export default class Columns extends Component {
       minUnit,
       timeSteps,
       height,
-      verticalLineClassNamesForTime
+      verticalLineClassNamesForTime,
+      verticalLineStyle
     } = this.props
     const ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart)
 
@@ -83,7 +85,8 @@ export default class Columns extends Component {
               top: '0px',
               left: `${left + leftPush}px`,
               width: `${labelWidth}px`,
-              height: `${height}px`
+              height: `${height}px`,
+              ...verticalLineStyle
             }}
           />
         )

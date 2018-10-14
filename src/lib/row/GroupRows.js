@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import GroupRow from './GroupRow'
 
 export default class GroupRows extends Component {
@@ -13,6 +13,8 @@ export default class GroupRows extends Component {
     groups: PropTypes.array.isRequired,
     horizontalLineClassNamesForGroup: PropTypes.func,
     onRowContextClick: PropTypes.func.isRequired,
+    horizontalLineOddStyle: PropTypes.object,
+    horizontalLineEvenStyle: PropTypes.object
   }
 
   shouldComponentUpdate(nextProps) {
@@ -35,6 +37,8 @@ export default class GroupRows extends Component {
       groups,
       horizontalLineClassNamesForGroup,
       onRowContextClick,
+      horizontalLineOddStyle,
+      horizontalLineEvenStyle
     } = this.props
     let lines = []
 
@@ -51,7 +55,8 @@ export default class GroupRows extends Component {
           horizontalLineClassNamesForGroup={horizontalLineClassNamesForGroup}
           style={{
             width: `${canvasWidth}px`,
-            height: `${groupHeights[i] - 1}px`
+            height: `${groupHeights[i] - 1}px`,
+            ...(i % 2 === 0 ? horizontalLineEvenStyle : horizontalLineOddStyle)
           }}
         />
       )

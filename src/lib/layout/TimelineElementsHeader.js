@@ -18,7 +18,10 @@ export default class TimelineElementsHeader extends Component {
     subHeaderLabelFormats: PropTypes.object.isRequired,
     headerLabelGroupHeight: PropTypes.number.isRequired,
     headerLabelHeight: PropTypes.number.isRequired,
-    registerScroll: PropTypes.func.isRequired
+    registerScroll: PropTypes.func.isRequired,
+    bottomHeaderStyle: PropTypes.object,
+    labelGroupStyle: PropTypes.object,
+    labelStyle: PropTypes.object
   }
 
   constructor(props) {
@@ -120,7 +123,10 @@ export default class TimelineElementsHeader extends Component {
       timeSteps,
       headerLabelGroupHeight,
       headerLabelHeight,
-      hasRightSidebar
+      hasRightSidebar,
+      bottomHeaderStyle,
+      labelGroupStyle,
+      labelStyle
     } = this.props
 
     const ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart)
@@ -161,7 +167,8 @@ export default class TimelineElementsHeader extends Component {
                 width: `${labelWidth}px`,
                 height: `${headerLabelGroupHeight}px`,
                 lineHeight: `${headerLabelGroupHeight}px`,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                ...labelGroupStyle
               }}
             >
               <span style={{ width: contentWidth, display: 'block' }}>
@@ -211,7 +218,8 @@ export default class TimelineElementsHeader extends Component {
               fontSize: `${
                 labelWidth > 30 ? '14' : labelWidth > 20 ? '12' : '10'
               }px`,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              ...labelStyle
             }}
           >
             {this.subHeaderLabel(time, minUnit, labelWidth)}
@@ -243,7 +251,7 @@ export default class TimelineElementsHeader extends Component {
         </div>
         <div
           className="bottom-header"
-          style={{ height: twoHeaders ? headerLabelHeight : headerLabelHeight + headerLabelGroupHeight, width: canvasWidth }}
+          style={{ height: twoHeaders ? headerLabelHeight : headerLabelHeight + headerLabelGroupHeight, width: canvasWidth, ...bottomHeaderStyle }}
         >
           {bottomHeaderLabels}
         </div>

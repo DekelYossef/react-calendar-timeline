@@ -11,7 +11,10 @@ export default class Sidebar extends Component {
     groupHeights: PropTypes.array.isRequired,
     keys: PropTypes.object.isRequired,
     groupRenderer: PropTypes.func,
-    isRightSidebar: PropTypes.bool
+    isRightSidebar: PropTypes.bool,
+    horizontalLineEvenStyle: PropTypes.object,
+    horizontalLineOddStyle: PropTypes.object,
+    style: PropTypes.object
   }
 
   shouldComponentUpdate(nextProps) {
@@ -36,13 +39,14 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const { width, groupHeights, height, isRightSidebar } = this.props
+    const { width, groupHeights, height, isRightSidebar, horizontalLineEvenStyle, horizontalLineOddStyle, style } = this.props
 
     const { groupIdKey, groupTitleKey, groupRightTitleKey } = this.props.keys
 
     const sidebarStyle = {
       width: `${width}px`,
-      height: `${height}px`
+      height: `${height}px`,
+      ...style
     }
 
     const groupsStyle = {
@@ -55,7 +59,8 @@ export default class Sidebar extends Component {
     this.props.groups.forEach((group, index) => {
       const elementStyle = {
         height: `${groupHeights[index] - 1}px`,
-        lineHeight: `${groupHeights[index] - 1}px`
+        lineHeight: `${groupHeights[index] - 1}px`,
+        ...(i % 2 === 0 ? horizontalLineEvenStyle : horizontalLineOddStyle)
       }
 
       groupLines.push(
