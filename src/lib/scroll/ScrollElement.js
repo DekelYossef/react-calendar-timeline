@@ -46,11 +46,9 @@ class ScrollElement extends Component {
 
   handleWheel = e => {
     const { traditionalZoom } = this.props
-
-    e.preventDefault()
-
     // zoom in the time dimension
     if (e.ctrlKey || e.metaKey || e.altKey) {
+      e.preventDefault()
       const parentPosition = getParentPosition(e.currentTarget)
       const xPosition = e.clientX - parentPosition.x
 
@@ -59,7 +57,8 @@ class ScrollElement extends Component {
       // convert vertical zoom to horiziontal
       this.props.onWheelZoom(speed, xPosition, e.deltaY)
     } else if (e.shiftKey) {
-      // shift+scroll event from a touchpad has deltaY property populated; shift+scroll event from a mouse has deltaX
+      e.preventDefault()
+// shift+scroll event from a touchpad has deltaY property populated; shift+scroll event from a mouse has deltaX
       this.scrollComponent.scrollLeft += e.deltaY || e.deltaX
 
       // no modifier pressed? we prevented the default event, so scroll or zoom as needed
@@ -70,7 +69,7 @@ class ScrollElement extends Component {
         }
       }
       if (e.deltaY !== 0) {
-        window.scrollTo(window.pageXOffset, window.pageYOffset + e.deltaY)
+        // window.scrollTo(window.pageXOffset, window.pageYOffset + e.deltaY)
         if (traditionalZoom) {
           const parentPosition = getParentPosition(e.currentTarget)
           const xPosition = e.clientX - parentPosition.x
