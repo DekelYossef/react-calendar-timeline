@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { getParentPosition } from '../utility/dom-helpers'
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {getParentPosition} from "../utility/dom-helpers";
 
 class ScrollElement extends Component {
   static propTypes = {
@@ -63,7 +63,7 @@ class ScrollElement extends Component {
 
       // no modifier pressed? we prevented the default event, so scroll or zoom as needed
     } else {
-      if (e.deltaX !== 0) {
+      if (e.deltaX !== 0 && Math.abs(e.deltaX) >= 5) {
         if (!traditionalZoom) {
           this.scrollComponent.scrollLeft += e.deltaX
         }
